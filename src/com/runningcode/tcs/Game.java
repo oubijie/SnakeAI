@@ -12,24 +12,24 @@ import java.util.LinkedList;
 public class Game implements Runnable {
 
 	/**
-	 * 蛇的主体链表
+	 * @蛇的主体链表
 	 */
 	LinkedList<Point> snake;
 	/**
-	 * 游戏得分
+	 * @游戏得分
 	 */
 	int score=0;
 	/**
-	 * 当前游戏状态
+	 * @当前游戏状态
 	 * -1，0,1,2  = 输，正常，暂停，胜利
 	 */
 	int gameState=0;
 	/**
-	 * 方向枚举类型定义
+	 * @方向枚举类型定义
 	 */
 	enum Direction {up,down,left,right,stop};
 	/**
-	 * 表示当前运动方向
+	 * @表示当前运动方向
 	 */
 	Direction nowDirection = Direction.stop;
 	
