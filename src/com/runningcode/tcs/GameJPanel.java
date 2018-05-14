@@ -61,7 +61,7 @@ public class GameJPanel extends JPanel implements Runnable{
 	
 	public void start () {
 	      if (t == null) {
-	         t = new Thread (this,"game");
+	         t = new Thread (this,"gamepanel");
 	         t.start ();
 	      }
 	}
