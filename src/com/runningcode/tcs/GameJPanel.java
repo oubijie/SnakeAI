@@ -19,7 +19,22 @@ public class GameJPanel extends JPanel implements Runnable{
 	//这个类继承接口的线程
 	private Thread t;
 	
+	/**
+	 * @双缓冲用的临时图像画板
+	 */
 	private Image image;
+	
+	/**
+	 * @取得游戏信息对象
+	 */
+	private Game game;
+	
+	/**
+	 * @param game 获取的游戏信息对象
+	 */
+	public GameJPanel(Game game){
+		this.game = game;
+	}
 	
 	//函数部分
 	//...
@@ -61,7 +76,7 @@ public class GameJPanel extends JPanel implements Runnable{
 	
 	public void start () {
 	      if (t == null) {
-	         t = new Thread (this,"gamepanel");
+	         t = new Thread (this,"game");
 	         t.start ();
 	      }
 	}
