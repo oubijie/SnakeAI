@@ -14,29 +14,48 @@ public class Game implements Runnable {
 	/**
 	 * @蛇的主体链表
 	 */
-	LinkedList<Point> snake;
+	private LinkedList<Point> snake;
 	/**
 	 * @游戏得分
 	 */
-	int score=0;
+	private int score=0;
 	/**
 	 * @当前游戏状态
 	 * -1，0,1,2  = 输，正常，暂停，胜利
 	 */
-	int gameState=0;
+	private int gameState=0;
+	
+	/**
+	 * @当前按键
+	 */
+	private GetKey nowkey;
+	
+	/**
+	 * @地图数组
+	 */
+	private int[][] map;
 	/**
 	 * @方向枚举类型定义
 	 */
-	enum Direction {up,down,left,right,stop};
+	private enum Direction {up,down,left,right,stop};
 	/**
 	 * @表示当前运动方向
 	 */
-	Direction nowDirection = Direction.stop;
+	private Direction nowDirection = Direction.stop;
 	
 	//这个类继承接口的线程
 	private Thread t;
 	
-	
+	/**
+	 * @Game类的构造函数
+	 * @param mapwidth 地图宽度
+	 * @param maplength 地图长度
+	 * @param nowkey 按键对象
+	 */
+	public Game(int mapwidth,int maplength,GetKey nowkey){
+		map = new int[maplength][mapwidth];
+		this.nowkey = nowkey;
+	}
 	
 	//函数部分
 	//...
