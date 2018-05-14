@@ -7,7 +7,7 @@ package com.runningcode.tcs;
 public class GetKey implements Runnable{
 	
 	/**
-	 * 处理后的按键值
+	 * @处理后的按键值
 	 * 1,2,3,4,5 = 上，下，左，右,暂停
 	 */
 	int key=0;
