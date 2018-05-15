@@ -67,8 +67,10 @@ public class GameJPanel extends JPanel implements Runnable{
 	    		g.setColor(Color.BLUE);
 	    		g.fillRect(snake.get(0).getX()*(20+2), snake.get(0).getY()*(20+2), 20, 20);
 	    	}
-	    	g.setColor(Color.GREEN);
-	    	g.fillRect(snake.get(m).getX()*(20+2), snake.get(m).getY()*(20+2), 20, 20);
+	    	else {
+		    	g.setColor(Color.GREEN);
+		    	g.fillRect(snake.get(m).getX()*(20+2), snake.get(m).getY()*(20+2), 20, 20);
+	    	}
 	    }
 	    //食物绘制部分
 	    g.setColor(Color.RED);
