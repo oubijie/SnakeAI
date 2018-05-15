@@ -1,5 +1,6 @@
 package com.runningcode.tcs;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.util.LinkedList;
@@ -17,17 +18,17 @@ public class GameJPanel extends JPanel implements Runnable{
 	private static final long serialVersionUID = 1L;
 	
 	//这个类继承接口的线程
-	private Thread t;
+	private Thread t = null;
 	
 	/**
 	 * @双缓冲用的临时图像画板
 	 */
-	private Image image;
+	private Image image = null;
 	
 	/**
 	 * @取得游戏信息对象
 	 */
-	private Game game;
+	private Game game = null;
 	
 	/**
 	 * @param game 获取的游戏信息对象
@@ -47,6 +48,33 @@ public class GameJPanel extends JPanel implements Runnable{
 	    image = createImage(this.getWidth(), this.getHeight());
 	    // 获取图像上下文对象
 	    Graphics g = image.getGraphics();
+	    //地图绘制部分
+	    int[][] map = game.getMap();
+	    int drawx=0;
+	    int drawy=0;
+	    for(int m=0;m<map.length;m++) {
+	    	for(int n =0;n<map[0].length;n++) {
+	    		drawx = m*(20+2);
+	    		drawy = n*(20+2);
+	    		g.setColor(Color.GRAY);
+	    		g.fillRect(drawx, drawy, 20, 20);
+	    	}
+	    }
+	    //蛇绘制部分
+	    LinkedList<Point> snake = game.getSnake();
+	    for(int m=0;m<snake.size();m++) {
+	    	if(m==0) {
+	    		g.setColor(Color.BLUE);
+	    		g.fillRect(snake.get(0).getX()*(20+2), snake.get(0).getY()*(20+2), 20, 20);
+	    	}
+	    	g.setColor(Color.GREEN);
+	    	g.fillRect(snake.get(m).getX()*(20+2), snake.get(m).getY()*(20+2), 20, 20);
+	    }
+	    //食物绘制部分
+	    g.setColor(Color.RED);
+    	g.fillRect(game.getFood().getX()*(20+2),game.getFood().getY()*(20+2), 20, 20);
+	    
+	    
 	    
 	}
 	/**
