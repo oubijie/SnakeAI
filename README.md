@@ -45,3 +45,5 @@
 - 2018-5-15  GameJPanel部分基本功能实现。
 
 ![简单测试一下绘制功能](https://gitee.com/uploads/images/2018/0515/161827_8c0e1669_1790958.png "简单测试一下绘制功能.png")
+
+- 2018-5-15  修复了GameJPanel绘制蛇主体的判断bug
