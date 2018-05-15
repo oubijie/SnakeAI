@@ -14,7 +14,7 @@ public class Game implements Runnable {
 	/**
 	 * @蛇的主体链表
 	 */
-	private LinkedList<Point> snake;
+	private LinkedList<Point> snake = null;
 	/**
 	 * @游戏得分
 	 */
@@ -28,7 +28,12 @@ public class Game implements Runnable {
 	/**
 	 * @当前按键
 	 */
-	private GetKey nowkey;
+	private GetKey nowkey = null;
+	
+	/**
+	 * @食物位置
+	 */
+	private Point food = null;
 	
 	/**
 	 * @地图数组
@@ -44,7 +49,7 @@ public class Game implements Runnable {
 	private Direction nowDirection = Direction.stop;
 	
 	//这个类继承接口的线程
-	private Thread t;
+	private Thread t = null;
 	
 	/**
 	 * @Game类的构造函数
@@ -57,10 +62,91 @@ public class Game implements Runnable {
 		this.nowkey = nowkey;
 	}
 	
+	public LinkedList<Point> getSnake() {
+		return snake;
+	}
+
+
+
+	public void setSnake(LinkedList<Point> snake) {
+		this.snake = snake;
+	}
+
+
+
+	public int getScore() {
+		return score;
+	}
+
+
+
+	public void setScore(int score) {
+		this.score = score;
+	}
+
+
+
+	public int getGameState() {
+		return gameState;
+	}
+
+
+
+	public void setGameState(int gameState) {
+		this.gameState = gameState;
+	}
+
+
+
+	public GetKey getNowkey() {
+		return nowkey;
+	}
+
+
+
+	public void setNowkey(GetKey nowkey) {
+		this.nowkey = nowkey;
+	}
+
+
+
+	public Point getFood() {
+		return food;
+	}
+
+
+
+	public void setFood(Point food) {
+		this.food = food;
+	}
+
+
+
+	public int[][] getMap() {
+		return map;
+	}
+
+
+
+	public void setMap(int[][] map) {
+		this.map = map;
+	}
+
+
+
+	public Direction getNowDirection() {
+		return nowDirection;
+	}
+
+
+
+	public void setNowDirection(Direction nowDirection) {
+		this.nowDirection = nowDirection;
+	}
+	
 	//函数部分
 	//...
 
-	
 
 	@Override
 	//run里面包含需要多线程循环执行的代码
