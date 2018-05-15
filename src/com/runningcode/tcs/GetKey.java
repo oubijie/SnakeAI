@@ -13,7 +13,7 @@ public class GetKey implements Runnable{
 	private int key=0;
 	
 	//这个类继承接口的线程
-	private Thread t;
+	private Thread t = null;
 
 	
 
