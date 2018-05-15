@@ -2,6 +2,7 @@ package com.runningcode.tcs;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.util.LinkedList;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -41,6 +42,29 @@ public class Desktop extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
+		
+		//==============================================
+		//测试数据部分
+		//==============================================
+		GetKey getkey = new GetKey();
+		
+		Game game = new Game(10, 10, getkey);
+		
+		LinkedList<Point> snake = new LinkedList<Point>();
+		snake.add(new Point(1,1));
+		snake.add(new Point(1,2));
+		snake.add(new Point(1,3));
+		snake.add(new Point(1,3));
+		game.setSnake(snake);
+		
+		game.setFood(new Point(5,5));
+		
+		GameJPanel gameJpanel = new GameJPanel(game);
+		
+		contentPane.add(gameJpanel);
+		
+		gameJpanel.start();
+		//==============================================
 	}
 
 }
