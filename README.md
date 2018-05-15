@@ -16,10 +16,10 @@
 3. 使用双缓冲技术刷新界面。
 4. 使用LinkedList<Point>来实现蛇的主体。
 5. 将GetKet实例传入Game中，来实现实时获取。
-6. 将Game传入GameJpanel中，来实现实时绘制。
-7. GetKey为独立线程来获取按键。
-8. Game为独立线程用来自动运算游戏数据。
-9. GameJPanel为独立线程，不断刷新，来实时显示游戏内容。
+6. 将Game实例传入GameJpanel中，来实现实时绘制。
+7. GetKey实例为独立线程来获取按键。
+8. Game实例为独立线程用来自动运算游戏数据。
+9. GameJPanel实例为独立线程，不断刷新，来实时显示游戏内容。
 
 ### 文件说明
 1. Desktop.java
