@@ -174,4 +174,11 @@ public class Game implements Runnable {
 	         t.start ();
 	      }
 	}
+
+	@SuppressWarnings("deprecation")
+	public void stop () {
+		if (t == null) {
+	         t.stop();
+	      }
+	}
 }
