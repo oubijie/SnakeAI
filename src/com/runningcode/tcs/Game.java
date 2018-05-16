@@ -62,7 +62,7 @@ public class Game implements Runnable {
 	 * @param nowkey 按键对象
 	 */
 	public Game(int mapwidth,int maplength,GetKey nowkey, int speed){
-		map = new int[maplength][mapwidth];
+		map = new int[mapwidth][maplength];
 		this.nowkey = nowkey;
 		this.speed = speed;
 	}
@@ -174,7 +174,7 @@ public class Game implements Runnable {
 	         t.start ();
 	      }
 	}
-
+	
 	@SuppressWarnings("deprecation")
 	public void stop () {
 		if (t == null) {
