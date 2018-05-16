@@ -28,6 +28,7 @@ public class JF_Options extends JFrame {
 	 * Create the frame.
 	 */
 	public JF_Options(Desktop mainJF) {
+		setResizable(false);
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosed(WindowEvent arg0) {
@@ -36,7 +37,6 @@ public class JF_Options extends JFrame {
 		});
 		setTitle("\u8BBE\u7F6E");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 430, 268);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -45,26 +45,26 @@ public class JF_Options extends JFrame {
 		txt_mapl = new JTextField();
 		txt_mapl.setText(""+mainJF.getMaplength());
 		txt_mapl.setEditable(false);
-		txt_mapl.setBounds(324, 54, 66, 26);
+		txt_mapl.setBounds(308, 10, 66, 26);
 		contentPane.add(txt_mapl);
 		txt_mapl.setColumns(10);
 		
 		txt_mapw = new JTextField();
 		txt_mapw.setEditable(false);
-		txt_mapw.setBounds(324, 90, 66, 26);
+		txt_mapw.setBounds(308, 46, 66, 26);
 		contentPane.add(txt_mapw);
 		txt_mapw.setText(""+mainJF.getMapwidth());
 		txt_mapw.setColumns(10);
 		
 		txt_speed = new JTextField();
 		txt_speed.setEditable(false);
-		txt_speed.setBounds(324, 125, 66, 26);
+		txt_speed.setBounds(308, 81, 66, 26);
 		contentPane.add(txt_speed);
 		txt_speed.setText(""+mainJF.getSpeed());
 		txt_speed.setColumns(10);
 		
 		sl_mapl = new JSlider();
-		sl_mapl.setBounds(114, 54, 200, 26);
+		sl_mapl.setBounds(98, 10, 200, 26);
 		sl_mapl.setMinimum(10);
 		sl_mapl.setMaximum(20);
 		sl_mapl.setValue(mainJF.getMaplength());
@@ -77,7 +77,7 @@ public class JF_Options extends JFrame {
 		contentPane.add(sl_mapl);
 		
 		sl_mapw = new JSlider();
-		sl_mapw.setBounds(114, 90, 200, 26);
+		sl_mapw.setBounds(98, 46, 200, 26);
 		sl_mapw.setMinimum(10);
 		sl_mapw.setMaximum(20);
 		sl_mapw.setValue(mainJF.getMapwidth());
@@ -90,7 +90,7 @@ public class JF_Options extends JFrame {
 		contentPane.add(sl_mapw);
 		
 		sl_speed = new JSlider();
-		sl_speed.setBounds(114, 126, 200, 26);
+		sl_speed.setBounds(98, 82, 200, 26);
 		sl_speed.setMinimum(300);
 		sl_speed.setMaximum(1500);
 		sl_speed.setValue(mainJF.getSpeed());
@@ -104,17 +104,17 @@ public class JF_Options extends JFrame {
 		
 		JLabel lblNewLabel = new JLabel("\u5730\u56FE\u957F\u5EA6");
 		lblNewLabel.setFont(new Font("微软雅黑", Font.PLAIN, 16));
-		lblNewLabel.setBounds(26, 54, 78, 26);
+		lblNewLabel.setBounds(10, 10, 78, 26);
 		contentPane.add(lblNewLabel);
 		
 		JLabel lblNewLabel_1 = new JLabel("\u5730\u56FE\u5BBD\u5EA6");
 		lblNewLabel_1.setFont(new Font("微软雅黑", Font.PLAIN, 16));
-		lblNewLabel_1.setBounds(26, 90, 78, 26);
+		lblNewLabel_1.setBounds(10, 46, 78, 26);
 		contentPane.add(lblNewLabel_1);
 		
 		JLabel lblNewLabel_2 = new JLabel("\u86C7\u7684\u901F\u5EA6");
 		lblNewLabel_2.setFont(new Font("微软雅黑", Font.PLAIN, 16));
-		lblNewLabel_2.setBounds(26, 126, 78, 26);
+		lblNewLabel_2.setBounds(10, 82, 78, 26);
 		contentPane.add(lblNewLabel_2);
 		
 		
