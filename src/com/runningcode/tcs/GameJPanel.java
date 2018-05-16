@@ -48,33 +48,42 @@ public class GameJPanel extends JPanel implements Runnable{
 	    image = createImage(this.getWidth(), this.getHeight());
 	    // 获取图像上下文对象
 	    Graphics g = image.getGraphics();
+	    
+	    int xp=1;
+	    int yp=20;
+	    
+	    //绘制得分
+	    g.drawString("当前得分："+game.getScore(), xp, yp-8);
+
 	    //地图绘制部分
 	    int[][] map = game.getMap();
 	    int drawx=0;
 	    int drawy=0;
 	    for(int m=0;m<map.length;m++) {
 	    	for(int n =0;n<map[0].length;n++) {
-	    		drawx = m*(20+2);
-	    		drawy = n*(20+2);
+	    		drawx = m*(20+2)+xp;
+	    		drawy = n*(20+2)+yp;
 	    		g.setColor(Color.GRAY);
 	    		g.fillRect(drawx, drawy, 20, 20);
 	    	}
 	    }
+	    
 	    //蛇绘制部分
 	    LinkedList<Point> snake = game.getSnake();
 	    for(int m=0;m<snake.size();m++) {
 	    	if(m==0) {
 	    		g.setColor(Color.BLUE);
-	    		g.fillRect(snake.get(0).getX()*(20+2), snake.get(0).getY()*(20+2), 20, 20);
+	    		g.fillRect(snake.get(0).getX()*(20+2)+xp, snake.get(0).getY()*(20+2)+yp, 20, 20);
 	    	}
 	    	else {
 		    	g.setColor(Color.GREEN);
-		    	g.fillRect(snake.get(m).getX()*(20+2), snake.get(m).getY()*(20+2), 20, 20);
+		    	g.fillRect(snake.get(m).getX()*(20+2)+xp, snake.get(m).getY()*(20+2)+yp, 20, 20);
 	    	}
 	    }
+	    
 	    //食物绘制部分
 	    g.setColor(Color.RED);
-    	g.fillRect(game.getFood().getX()*(20+2),game.getFood().getY()*(20+2), 20, 20);
+    	g.fillRect(game.getFood().getX()*(20+2)+xp,game.getFood().getY()*(20+2)+yp, 20, 20);
 	    
 	    
 	    
@@ -110,7 +119,7 @@ public class GameJPanel extends JPanel implements Runnable{
 	         t.start ();
 	      }
 	}
-
+	
 	@SuppressWarnings("deprecation")
 	public void stop () {
 		if (t == null) {
