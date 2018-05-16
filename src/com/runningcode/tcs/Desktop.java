@@ -47,6 +47,8 @@ public class Desktop extends JFrame {
 		//测试数据部分
 		//==============================================
 		GetKey getkey = new GetKey();
+		contentPane.add(getkey);
+		getkey.start();
 		
 		Game game = new Game(10, 10, getkey);
 		
@@ -54,7 +56,7 @@ public class Desktop extends JFrame {
 		snake.add(new Point(1,1));
 		snake.add(new Point(1,2));
 		snake.add(new Point(1,3));
-		snake.add(new Point(1,3));
+		snake.add(new Point(2,3));
 		game.setSnake(snake);
 		
 		game.setFood(new Point(5,5));
