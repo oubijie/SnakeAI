@@ -111,4 +111,11 @@ public class GameJPanel extends JPanel implements Runnable{
 	      }
 	}
 
+	@SuppressWarnings("deprecation")
+	public void stop () {
+		if (t == null) {
+	         t.stop();
+	      }
+	}
+
 }
