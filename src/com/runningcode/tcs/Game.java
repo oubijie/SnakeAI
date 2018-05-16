@@ -26,6 +26,10 @@ public class Game implements Runnable {
 	private int gameState=0;
 	
 	/**
+	 * @蛇的速度
+	 */
+	private int speed = 50;
+	/**
 	 * @当前按键
 	 */
 	private GetKey nowkey = null;
@@ -156,7 +160,7 @@ public class Game implements Runnable {
 				//需要线程调用代码写在这里
 			//每次执行后线程休眠时间
 			try {
-				Thread.sleep(50);
+				Thread.sleep(speed);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
