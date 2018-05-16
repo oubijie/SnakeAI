@@ -61,9 +61,10 @@ public class Game implements Runnable {
 	 * @param maplength 地图长度
 	 * @param nowkey 按键对象
 	 */
-	public Game(int mapwidth,int maplength,GetKey nowkey){
+	public Game(int mapwidth,int maplength,GetKey nowkey, int speed){
 		map = new int[maplength][mapwidth];
 		this.nowkey = nowkey;
+		this.speed = speed;
 	}
 	
 	public LinkedList<Point> getSnake() {
