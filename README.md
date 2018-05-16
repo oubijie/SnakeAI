@@ -20,7 +20,7 @@
 7. GetKey实例为独立线程来获取按键。
 8. Game实例为独立线程用来自动运算游戏数据。
 9. GameJPanel实例为独立线程，不断刷新，来实时显示游戏内容。
-10. 为实现按键获取，GetKey继承自TextField，来实现获取按键事件
+10. 为实现按键获取，GetKey继承自TextField，来实现获取按键事件。
 
 ### 文件说明
 1. Desktop.java
@@ -33,6 +33,11 @@
 按键获取程序。
 5. Point.java
 基础点类。
+6. JF_Options.java
+设置窗口类。
+7. JF_About.java
+关于窗口类。
+
 
 ### 目前人员
 1. 夜猫
@@ -51,3 +56,9 @@
 
 - 2018-5-15  修复了GameJPanel绘制蛇主体的判断bug
 - 2018-5-16  基本实现了GetKey类的功能。
+- 2018-5-16  基本实现JF_Options窗口设置游戏参数功能。
+- 2018-5-16  实现了界面根据Game信息自动拉伸功能。
+
+![设置界面](https://gitee.com/uploads/images/2018/0516/212026_b1cf8042_1790958.png "设置界面.png")
+
+![设置后界面](https://gitee.com/uploads/images/2018/0516/212041_eb9d327c_1790958.png "设置后界面.png")
