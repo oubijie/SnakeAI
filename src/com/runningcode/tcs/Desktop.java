@@ -159,6 +159,7 @@ public class Desktop extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				if(options!=null) return;
 				options = new JF_Options(thisDesktop);
+				options.setBounds(thisDesktop.getX(), thisDesktop.getY(), 398, 156);
 				options.setVisible(true);
 				
 			}
