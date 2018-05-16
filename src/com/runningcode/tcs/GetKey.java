@@ -18,6 +18,12 @@ public class GetKey extends TextField implements Runnable{
 	 */
 	private int key=0;
 	
+	
+	//默认的get方法
+	public int getKey() {
+		return key;
+	}
+
 	//这个类继承接口的线程
 	private Thread t = null;
 
@@ -46,7 +52,7 @@ public class GetKey extends TextField implements Runnable{
 	         t.start ();
 	      }
 	}
-
+	
 	@SuppressWarnings("deprecation")
 	public void stop () {
 		if (t == null) {
