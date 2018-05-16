@@ -62,3 +62,7 @@
 ![设置界面](https://gitee.com/uploads/images/2018/0516/212026_b1cf8042_1790958.png "设置界面.png")
 
 ![设置后界面](https://gitee.com/uploads/images/2018/0516/212041_eb9d327c_1790958.png "设置后界面.png")
+
+- 2018-5-16  完成了About界面
+
+![about页面](https://gitee.com/uploads/images/2018/0516/215318_9b57d277_1790958.jpeg "about页面.jpg")
