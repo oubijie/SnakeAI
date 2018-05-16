@@ -119,6 +119,7 @@ public class Desktop extends JFrame {
 	 * 主构造函数
 	 */
 	public Desktop() {
+		setTitle("\u8D2A\u5403\u86C7");
 		//设置窗口移动监听事件用来记录窗口位置
 		addComponentListener(new ComponentAdapter() {
 			@Override
@@ -178,6 +179,14 @@ public class Desktop extends JFrame {
 		menuBar.add(mnNewMenu_1);
 		
 		JMenuItem nb_about = new JMenuItem("\u5173\u4E8E\u4F5C\u8005");
+		nb_about.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(about!=null) return;
+				about = new JF_About(thisDesktop);
+				about.setBounds(thisDesktop.getX(), thisDesktop.getY(), 450, 300);
+				about.setVisible(true);
+			}
+		});
 		mnNewMenu_1.add(nb_about);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -186,7 +195,6 @@ public class Desktop extends JFrame {
 		
 		//初始化游戏
 		initGame();
-		
 		
 		//初始屏幕位置处理
 		Dimension   screensize   =   Toolkit.getDefaultToolkit().getScreenSize();
