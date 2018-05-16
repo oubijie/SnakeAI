@@ -20,7 +20,7 @@
 7. GetKey实例为独立线程来获取按键。
 8. Game实例为独立线程用来自动运算游戏数据。
 9. GameJPanel实例为独立线程，不断刷新，来实时显示游戏内容。
-10.为实现按键获取，GetKey继承自TextField，来实现获取按键事件
+10. 为实现按键获取，GetKey继承自TextField，来实现获取按键事件
 
 ### 文件说明
 1. Desktop.java
