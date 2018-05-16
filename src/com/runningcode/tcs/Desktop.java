@@ -73,7 +73,9 @@ public class Desktop extends JFrame {
 	
 	public void newGame() {
 		game = new Game(mapwidth, maplength, getkey ,speed);
-		
+		//=================================================
+		//测试数据
+		//=================================================
 		LinkedList<Point> snake = new LinkedList<Point>();
 		snake.add(new Point(1,1));
 		snake.add(new Point(1,2));
@@ -82,6 +84,7 @@ public class Desktop extends JFrame {
 		game.setSnake(snake);
 		
 		game.setFood(new Point(5,5));
+		//=================================================
 		game.start();
 	}
 	
