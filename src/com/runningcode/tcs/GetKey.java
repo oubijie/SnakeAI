@@ -46,6 +46,13 @@ public class GetKey extends TextField implements Runnable{
 	         t.start ();
 	      }
 	}
+
+	@SuppressWarnings("deprecation")
+	public void stop () {
+		if (t == null) {
+	         t.stop();
+	      }
+	}
 	
 	/**
 	 * @param keycode
