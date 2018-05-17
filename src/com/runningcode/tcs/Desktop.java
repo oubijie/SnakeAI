@@ -3,7 +3,6 @@ package com.runningcode.tcs;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Toolkit;
-import java.util.LinkedList;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -35,7 +34,7 @@ public class Desktop extends JFrame {
 	//设置参数
 	private int mapwidth = 10;
 	private int maplength = 10;
-	private int speed = 1500;
+	private int speed = 1000;
 	
 	//当前窗口位置坐标
 	private int nowJFx=0;
@@ -71,30 +70,27 @@ public class Desktop extends JFrame {
 		});
 	}
 	
-	public void newGame() {
+	/**
+	 * @初始化Game类
+	 */
+	public void initGame() {
 		game = new Game(mapwidth, maplength, getkey ,speed);
-		//=================================================
-		//测试数据
-		//=================================================
-		LinkedList<Point> snake = new LinkedList<Point>();
-		snake.add(new Point(1,1));
-		snake.add(new Point(1,2));
-		snake.add(new Point(1,3));
-		snake.add(new Point(2,3));
-		game.setSnake(snake);
-		
-		game.setFood(new Point(5,5));
-		//=================================================
 		game.start();
 	}
 	
-	public void newGetKey() {
+	/**
+	 * @初始化GetKey类
+	 */
+	public void initGetKey() {
 		getkey = new GetKey();
 		contentPane.add(getkey);
 		getkey.start();
 	}
 	
-	public void newGameJPanel() {
+	/**
+	 * @初始化GameJPanel类
+	 */
+	public void initGameJPanel() {
 		gameJpanel = new GameJPanel(game);
 		gameJpanel.setBounds(0, 0, mapwidth*(20+2), maplength*(20+2)+30);
 		thisDesktop.setBounds( nowJFx, nowJFy, mapwidth*(20+2)+6, maplength*(20+2)+73);
@@ -102,24 +98,32 @@ public class Desktop extends JFrame {
 		gameJpanel.start();
 	}
 	
-	public void initGame() {
-		if(gameJpanel!=null) {
-			gameJpanel.stop();
-		}
-		if(game!=null) {
-			game.stop();
-		}
-		if(getkey!=null) {
-			getkey.stop();
-		}
-		contentPane.removeAll();
-		newGetKey();
-		newGame();
-		newGameJPanel();
+	/**
+	 * @初始化所有对象
+	 */
+	public void initAll() {
+		initGetKey();
+		initGame();
+		initGameJPanel();
 	}
 	
 	/**
-	 * 主构造函数
+	 * @通过按钮新游戏创建新的Game
+	 */
+	public void nb_newGame() {
+		if(game!=null) {
+			game.runover();
+		}
+		getkey.setKey(0);
+		initGame();
+		gameJpanel.setGame(game);
+		gameJpanel.setBounds(0, 0, mapwidth*(20+2), maplength*(20+2)+30);
+		thisDesktop.setBounds( nowJFx, nowJFy, mapwidth*(20+2)+6, maplength*(20+2)+73);
+	}
+	
+	
+	/**
+	 * @主构造函数
 	 */
 	public Desktop() {
 		setTitle("\u8D2A\u5403\u86C7");
@@ -148,8 +152,7 @@ public class Desktop extends JFrame {
 		JMenuItem nb_newgame = new JMenuItem("\u65B0\u6E38\u620F");
 		nb_newgame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				initGame();
-				contentPane.repaint();
+				nb_newGame();
 			}
 		});
 		mnNewMenu.add(nb_newgame);
