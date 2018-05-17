@@ -40,7 +40,7 @@ public class JF_About extends JFrame {
 		
 		JLabel label = new JLabel("");
 		label.setBounds(5, 5, 434, 261);
-		label.setIcon(new ImageIcon(JF_About.class.getResource("/img/bg.png")));
+		label.setIcon(new ImageIcon(JF_About.class.getResource("/imgs/bg.png")));
 		contentPane.add(label);
 	}
 
