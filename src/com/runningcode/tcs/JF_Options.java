@@ -91,8 +91,8 @@ public class JF_Options extends JFrame {
 		
 		sl_speed = new JSlider();
 		sl_speed.setBounds(98, 82, 200, 26);
-		sl_speed.setMinimum(300);
-		sl_speed.setMaximum(1500);
+		sl_speed.setMinimum(50);
+		sl_speed.setMaximum(1000);
 		sl_speed.setValue(mainJF.getSpeed());
 		sl_speed.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
