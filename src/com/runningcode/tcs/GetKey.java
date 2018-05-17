@@ -11,17 +11,23 @@ import java.awt.event.KeyEvent;
 public class GetKey extends TextField implements Runnable{
 	
 	private static final long serialVersionUID = 1L;
-
 	/**
 	 * 处理后的按键值
 	 * 1,2,3,4,5 = 上，下，左，右,暂停
 	 */
 	private int key=0;
 	
+	@SuppressWarnings("unused")
+	private boolean runisover = false;
 	
-	//默认的get方法
+	
+	//默认的get，set方法
 	public int getKey() {
 		return key;
+	}
+	
+	public void setKey(int key) {
+		this.key = key;
 	}
 
 	//这个类继承接口的线程
@@ -60,6 +66,10 @@ public class GetKey extends TextField implements Runnable{
 	      }
 	}
 	
+	public void runover() {
+		runisover = true;
+	}
+	
 	/**
 	 * @param keycode
 	 * @处理键值码
@@ -67,7 +77,7 @@ public class GetKey extends TextField implements Runnable{
 	 */
 	private int keyCodeToKey(int keycode) {
 		/*
-            keycode键盘 按键 - 键码 对应表 - Yiven - 博客园
+        	keycode键盘 按键 - 键码 对应表 - Yiven - 博客园
 			https://www.cnblogs.com/yiven/p/7118056.html
 		 */
 		switch(keycode) {
@@ -89,11 +99,12 @@ public class GetKey extends TextField implements Runnable{
         @Override
         public void keyPressed(KeyEvent e) {
         	int keycode = e.getKeyCode();
-            //System.out.println("keycode:"+keycode);  
+            System.out.println("keycode:"+keycode);  
             int tempkey = keyCodeToKey(keycode);
+
             if(tempkey!=-1) {
             	key = tempkey;
-            	//System.out.println("key:"+key);  
+            	System.out.println("key:"+key);  
             }
         }
     }
