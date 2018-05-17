@@ -1,9 +1,10 @@
 package com.runningcode.tcs;
 
 import java.util.LinkedList;
+import java.util.Random;
 
 /**
- * @author 作者名
+ * @author 李栋
  * 
  *@游戏核心类
  *主要是游戏的核心算法
@@ -15,15 +16,22 @@ public class Game implements Runnable {
 	 * @蛇的主体链表
 	 */
 	private LinkedList<Point> snake = null;
+	
 	/**
 	 * @游戏得分
 	 */
 	private int score=0;
+	
 	/**
 	 * @当前游戏状态
 	 * -1，0,1,2  = 输，正常，暂停，胜利
 	 */
 	private int gameState=0;
+	
+	/**
+	 * @判断是否需要结束Run函数
+	 */
+	private boolean runisover = false;
 	
 	/**
 	 * @蛇的速度
@@ -43,14 +51,54 @@ public class Game implements Runnable {
 	 * @地图数组
 	 */
 	private int[][] map;
+	
+	/**
+	 * @地图宽度
+	 */
+	private int mapwidth = 0;
+	
+	/**
+	 * @地图长度
+	 */
+	private int maplength = 0;
+	
 	/**
 	 * @方向枚举类型定义
 	 */
 	private enum Direction {up,down,left,right,stop};
+	
 	/**
 	 * @表示当前运动方向
 	 */
 	private Direction nowDirection = Direction.stop;
+	
+	/**
+	 * @author Nightcat
+	 * @自定义枚举类Gridtype用来表示地图块的类型
+	 */
+	public static enum Gridtype {
+		
+		wall(1);
+
+		private int index;
+		
+		/**
+		 * @地图块类型的构造函数
+		 * @param index
+		 */
+		private Gridtype(int index) {
+			this.index = index;
+		}
+		
+		/**
+		 * @获取地图块index
+		 * @return
+		 */
+		public int getIndex() {
+			return index;
+		}
+	
+	};
 	
 	//这个类继承接口的线程
 	private Thread t = null;
@@ -65,8 +113,266 @@ public class Game implements Runnable {
 		map = new int[mapwidth][maplength];
 		this.nowkey = nowkey;
 		this.speed = speed;
+		this.mapwidth = mapwidth;
+		this.maplength = maplength;
+		initGame();
 	}
 	
+	/**
+	 * @蛇体移动函数
+	 */
+	public void move() {
+		//获取蛇头
+		Point head = snake.getFirst();
+		//获取方向
+		getnowDirection();
+		//判断方向
+		switch(nowDirection) {
+			case up:snake.addFirst(new Point(head.getX(), head.getY()-1));break;
+			case down:snake.addFirst(new Point(head.getX() , head.getY()+1));break;
+			case left:snake.addFirst(new Point(head.getX()-1, head.getY()));break;
+			case right:snake.addFirst(new Point(head.getX()+1,head.getY()));break;
+			case stop:gameState=1;return;
+			default:
+				break;
+		}	
+		//每移动一次要判断是否吃到了食物
+		if(eatFood()) {
+			//吃到了食物
+			createFood();	
+		}else {
+			//没吃到删除蛇尾
+			snake.removeLast();	
+		}
+		//判断转弯结点
+		pdTrunPoint();
+		//判断游戏是否结束
+		isGameOver();
+	}
+	
+	/**
+	 * @判断转弯结点函数
+	 */
+	private void pdTrunPoint() {
+		if(snake.size()>2) {
+			for(int k=1;k<snake.size()-1;k++) {
+				Point before = snake.get(k-1);
+				Point centre = snake.get(k);
+				Point after = snake.get(k+1);
+				if(centre.getX()+1 == before.getX() && centre.getY() == before.getY() &&
+						centre.getX() == after.getX() && centre.getY()+1 == after.getY() || 
+							centre.getX() == before.getX() && centre.getY()+1 == before.getY() &&
+								centre.getX()+1 == after.getX() && centre.getY() == after.getY() ) {
+					centre.setNodeState(1);
+					return;
+				}
+				if(centre.getX() == before.getX() && centre.getY()+1 == before.getY() &&
+						centre.getX()-1 == after.getX() && centre.getY() == after.getY() ||
+							centre.getX()-1 == before.getX() && centre.getY() == before.getY() &&
+								centre.getX() == after.getX() && centre.getY()+1 == after.getY() ) {
+					centre.setNodeState(3);
+					return;
+				}
+				if(centre.getX()-1 == before.getX() && centre.getY() == before.getY() &&
+						centre.getX() == after.getX() && centre.getY()-1 == after.getY() ||
+							centre.getX() == before.getX() && centre.getY()-1 == before.getY() &&
+								centre.getX()-1 == after.getX() && centre.getY() == after.getY() ) {
+					centre.setNodeState(9);
+					return;
+				}
+				if(centre.getX() == before.getX() && centre.getY()-1 == before.getY() &&
+						centre.getX()+1 == after.getX() && centre.getY() == after.getY() || 
+							centre.getX()+1 == before.getX() && centre.getY() == before.getY() &&
+								centre.getX() == after.getX() && centre.getY()-1 == after.getY()) {
+					centre.setNodeState(7);
+					return;
+				}
+			}
+		}
+	}
+	
+	/**
+	 * @从GetKey类获取当前按键函数
+	 */
+	public void getnowDirection() {
+		int i_nowkey =nowkey.getKey();
+		Direction tempd = Direction.stop;
+		switch(i_nowkey) {
+		case 1:tempd = Direction.up;break;
+		case 2:tempd = Direction.down;break;
+		case 3:tempd = Direction.left;break;
+		case 4:tempd = Direction.right;break;
+		case 5:tempd = Direction.stop;break;
+		}
+		
+		//对回头的情况进行过滤
+		if(nowDirection == Direction.up && tempd == Direction.down) return;
+		if(nowDirection == Direction.down && tempd == Direction.up) return;
+		if(nowDirection == Direction.left && tempd == Direction.right) return;
+		if(nowDirection == Direction.right && tempd == Direction.left) return;
+				
+		//正确操作则成功赋值
+		nowDirection = tempd;
+	}
+	
+	
+	/**
+	 * @随机生成食物函数
+	 */
+	public void createFood() {
+		//创建一个随机对象
+		Random random = new Random();
+		
+		while(true) {
+			int x =random.nextInt(mapwidth);
+			int y = random.nextInt(maplength);
+			if(map[x][y]!=Gridtype.wall.getIndex()) {
+				boolean isok = true;
+				for(int k =0;k<snake.size();k++) {
+					Point tempsnake = snake.get(k);
+					if(tempsnake.getX() == x && tempsnake.getY() ==y) {
+						isok=false;
+					}
+				}
+				if(isok == false) {
+					continue;
+				}
+				else {
+					food = new Point(x,y);
+					return;
+				}
+			}	
+		}
+		
+	}
+	
+	
+	
+	/**
+	 * @初始化蛇的位置
+	 */
+	public void initSnake() {
+		int x = mapwidth/2;
+		int y = maplength/2;
+		snake = new LinkedList<Point>(); 
+		snake.addFirst(new Point(x, y));	
+	}
+
+	
+	/**
+	 * @初始化地图边界
+	 */
+	public void initBackground() {
+		for(int rows =0;rows<maplength;rows++) {
+			for(int cols=0;cols<mapwidth;cols++) {
+				//第一行跟最后一行，第一列跟最后一列
+				if(rows==0||rows==(maplength-1)||cols==0||cols==(mapwidth-1)) {
+					map[cols][rows]=Gridtype.wall.getIndex();
+				}
+			}	
+		}
+	}
+
+	
+	/**
+	 * @吃食物判断
+	 * @return 成功返回true，失败返回false
+	 */
+	public boolean eatFood() {
+		//先获取原来的蛇头
+		Point head = snake.getFirst();
+		if(head.getX() == food.getX() && head.getY() ==food.getY()) {
+			score+=10;
+			return true;
+		}
+		return false;
+		
+	}
+	
+	
+	/**
+	 * @判断游戏是否已经结束
+	 */
+	public void isGameOver(){
+		//撞墙死亡
+		Point head = snake.getFirst();
+		
+		if(map[head.getX()][head.getY()]==Gridtype.wall.getIndex()){
+			gameState = -1;
+		}	
+		//咬到自己  蛇身
+		if(snake.size()>1) {
+			for(int k =1;k<snake.size();k++) {
+				Point tempsnake = snake.get(k);
+				if(tempsnake.getX() == head.getX() && tempsnake.getY() == head.getY()) {
+					gameState = -1;
+				}
+			}
+		}
+
+	}
+		
+	/**
+	 * @初始化Game配置
+	 */
+	public void initGame() {
+		initBackground();
+		initSnake();
+		createFood();
+	}
+
+
+	@Override
+	//run里面包含需要多线程循环执行的代码
+	public void run() {
+		while(true) {
+			if(runisover==true) {
+				break;
+			}
+			move();
+			try {
+				//如果已经判断结束，则结束run函数
+				if(gameState == -1) {
+					//System.out.println("gameover");
+					break;
+				}
+				//如果暂停则等待其他按键按下，并且当前线程死循环
+				while(gameState == 1) {
+					if(nowkey.getKey()!=5) {
+						break;
+					}
+					Thread.sleep(speed);
+					//System.out.println("puser");
+				}
+				//每次执行后线程休眠时间
+				Thread.sleep(speed);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	public void start () {
+	      if (t == null) {
+	         t = new Thread (this,"game");
+	         t.start ();
+	      }
+	}
+	
+	@SuppressWarnings("deprecation")
+	public void stop () {
+		if (t == null) {
+	         t.stop();
+	      }
+	}
+	
+	public void runover() {
+		runisover = true;
+	}
+	
+	
+	
+	//构造函数
 	public LinkedList<Point> getSnake() {
 		return snake;
 	}
@@ -147,38 +453,5 @@ public class Game implements Runnable {
 
 	public void setNowDirection(Direction nowDirection) {
 		this.nowDirection = nowDirection;
-	}
-	
-	//函数部分
-	//...
-
-
-	@Override
-	//run里面包含需要多线程循环执行的代码
-	public void run() {
-		while(true) {
-			//code
-				//需要线程调用代码写在这里
-			//每次执行后线程休眠时间
-			try {
-				Thread.sleep(speed);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-		}
-	}
-	
-	public void start () {
-	      if (t == null) {
-	         t = new Thread (this,"game");
-	         t.start ();
-	      }
-	}
-	
-	@SuppressWarnings("deprecation")
-	public void stop () {
-		if (t == null) {
-	         t.stop();
-	      }
 	}
 }
