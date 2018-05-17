@@ -20,6 +20,9 @@ public class GameJPanel extends JPanel implements Runnable{
 	//这个类继承接口的线程
 	private Thread t = null;
 	
+	@SuppressWarnings("unused")
+	private boolean runisover = false;
+	
 	/**
 	 * @双缓冲用的临时图像画板
 	 */
@@ -37,9 +40,16 @@ public class GameJPanel extends JPanel implements Runnable{
 		this.game = game;
 	}
 	
-	//函数部分
-	//...
-	
+	/**
+	 * @为画板设置一个新的Game对象
+	 * @param game
+	 */
+	public void setGame(Game game) {
+		this.game = game;
+	}
+
+
+
 	/**
 	 * @双缓冲技术应用 绘制缓冲区
 	 */
@@ -63,21 +73,33 @@ public class GameJPanel extends JPanel implements Runnable{
 	    	for(int n =0;n<map[0].length;n++) {
 	    		drawx = m*(20+2)+xp;
 	    		drawy = n*(20+2)+yp;
-	    		g.setColor(Color.GRAY);
+	    		
+	    		if(map[m][n]==Game.Gridtype.wall.getIndex()) {
+	    			g.setColor(Color.BLACK);
+	    		}
+	    		else {
+	    			g.setColor(Color.GRAY);
+	    		}
 	    		g.fillRect(drawx, drawy, 20, 20);
 	    	}
 	    }
 	    
 	    //蛇绘制部分
 	    LinkedList<Point> snake = game.getSnake();
+	    //System.out.println(""+snake.getFirst().getX()+"-"+snake.getFirst().getY());
 	    for(int m=0;m<snake.size();m++) {
 	    	if(m==0) {
 	    		g.setColor(Color.BLUE);
 	    		g.fillRect(snake.get(0).getX()*(20+2)+xp, snake.get(0).getY()*(20+2)+yp, 20, 20);
 	    	}
 	    	else {
-		    	g.setColor(Color.GREEN);
-		    	g.fillRect(snake.get(m).getX()*(20+2)+xp, snake.get(m).getY()*(20+2)+yp, 20, 20);
+	    		if(snake.get(m).getNodeState()==0) {
+			    	g.setColor(Color.GREEN);
+	    		}
+	    		else {
+	    			g.setColor(Color.orange);
+	    		}
+	    		g.fillRect(snake.get(m).getX()*(20+2)+xp, snake.get(m).getY()*(20+2)+yp, 20, 20);
 	    	}
 	    }
 	    
@@ -104,6 +126,10 @@ public class GameJPanel extends JPanel implements Runnable{
 		while(true) {
 			//code
 				//需要线程调用代码写在这里
+			if(game!=null) {
+				this.repaint();
+			}
+				//System.out.println("gp id run.");
 			//每次执行后线程休眠时间
 			try {
 				Thread.sleep(50);
@@ -125,6 +151,10 @@ public class GameJPanel extends JPanel implements Runnable{
 		if (t == null) {
 	         t.stop();
 	      }
+	}
+	
+	public void runover() {
+		runisover = true;
 	}
 
 }
