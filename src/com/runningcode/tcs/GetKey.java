@@ -15,7 +15,7 @@ public class GetKey extends TextField implements Runnable{
 	 * 处理后的按键值
 	 * 1,2,3,4,5 = 上，下，左，右,暂停
 	 */
-	private int key=0;
+	private int key=5;
 	
 	@SuppressWarnings("unused")
 	private boolean runisover = false;
@@ -99,12 +99,12 @@ public class GetKey extends TextField implements Runnable{
         @Override
         public void keyPressed(KeyEvent e) {
         	int keycode = e.getKeyCode();
-            System.out.println("keycode:"+keycode);  
+            //System.out.println("keycode:"+keycode);  
             int tempkey = keyCodeToKey(keycode);
 
             if(tempkey!=-1) {
             	key = tempkey;
-            	System.out.println("key:"+key);  
+            	//System.out.println("key:"+key);  
             }
         }
     }
