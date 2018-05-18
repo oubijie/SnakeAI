@@ -16,10 +16,24 @@ public class Point {
 	 * 7 8 9 
 	 * 4 5 6 
 	 * 1 2 3 
-	 * 有效参数为 7,9,1,3分别表示蛇主体转弯时，那个折点的状态
+	 * turnState 有效参数为 7,9,1,3分别表示蛇主体转弯时，那个折点的状态
+	 * drState 有效参数为4,2,6,8分别表示蛇主体这个结点经历的方向
 	 */
-	private int nodeState;
+	private int turnState;
+	private int drState;
 	
+	public Point(int x, int y,int turntate,int drState) {
+		this.x = x;
+		this.y = y;
+		this.turnState = turntate;
+		this.drState = drState;
+	}
+	
+	public Point(int x, int y,int drState) {
+		this.x = x;
+		this.y = y;
+		this.drState = drState;
+	}
 
 	public Point(int x, int y) {
 		this.x = x;
@@ -30,12 +44,20 @@ public class Point {
 
 	}
 	
-	public int getNodeState() {
-		return nodeState;
+	public int getTurnState() {
+		return turnState;
 	}
 
-	public void setNodeState(int nodeState) {
-		this.nodeState = nodeState;
+	public void setTurnState(int turnState) {
+		this.turnState = turnState;
+	}
+
+	public int getDrState() {
+		return drState;
+	}
+
+	public void setDrState(int drState) {
+		this.drState = drState;
 	}
 
 	public int getX() {
