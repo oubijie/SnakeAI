@@ -97,8 +97,6 @@
 - 2018-5-18  调整了主要几个类的部分参数的初始值。
 
 ![开始游戏](https://gitee.com/uploads/images/2018/0519/005935_997d0f56_1790958.png "开始游戏.png")
-
 ![结点属性判断绘制](https://gitee.com/uploads/images/2018/0519/005955_ac375e74_1790958.png "结点属性判断绘制.png")
-
 ![结束得分画面](https://gitee.com/uploads/images/2018/0519/010028_676d6c7c_1790958.png "结束得分画面.png")
 
