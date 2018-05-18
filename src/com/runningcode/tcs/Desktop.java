@@ -34,7 +34,7 @@ public class Desktop extends JFrame {
 	//设置参数
 	private int mapwidth = 10;
 	private int maplength = 10;
-	private int speed = 1000;
+	private int speed = 600;
 	
 	//当前窗口位置坐标
 	private int nowJFx=0;
@@ -75,6 +75,7 @@ public class Desktop extends JFrame {
 	 */
 	public void initGame() {
 		game = new Game(mapwidth, maplength, getkey ,speed);
+		game.setGameState(1);
 		game.start();
 	}
 	
@@ -114,7 +115,6 @@ public class Desktop extends JFrame {
 		if(game!=null) {
 			game.runover();
 		}
-		getkey.setKey(0);
 		initGame();
 		gameJpanel.setGame(game);
 		gameJpanel.setBounds(0, 0, mapwidth*(20+2), maplength*(20+2)+30);
@@ -200,7 +200,7 @@ public class Desktop extends JFrame {
 		contentPane.setLayout(null);
 		
 		//初始化游戏
-		initGame();
+		initAll();
 		
 		//初始屏幕位置处理
 		Dimension   screensize   =   Toolkit.getDefaultToolkit().getScreenSize();
