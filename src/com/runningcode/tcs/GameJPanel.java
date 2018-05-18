@@ -1,6 +1,7 @@
 package com.runningcode.tcs;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.util.LinkedList;
@@ -86,26 +87,75 @@ public class GameJPanel extends JPanel implements Runnable{
 	    
 	    //蛇绘制部分
 	    LinkedList<Point> snake = game.getSnake();
-	    //System.out.println(""+snake.getFirst().getX()+"-"+snake.getFirst().getY());
 	    for(int m=0;m<snake.size();m++) {
+	    	//绘制首个结点
 	    	if(m==0) {
 	    		g.setColor(Color.BLUE);
-	    		g.fillRect(snake.get(0).getX()*(20+2)+xp, snake.get(0).getY()*(20+2)+yp, 20, 20);
 	    	}
+	    	//绘制末尾结点
+	    	else if(m==snake.size()-1){
+	    		switch(snake.get(m).getDrState()) {
+	    		case 2:g.setColor(Color.YELLOW);break;
+	    		case 8:g.setColor(Color.YELLOW);break;
+	    		case 4:g.setColor(Color.YELLOW);break;
+	    		case 6:g.setColor(Color.YELLOW);break;
+	    		
+	    		default:g.setColor(Color.BLACK);break;
+	    		}
+	    	}
+	    	//绘制中间结点
 	    	else {
-	    		if(snake.get(m).getNodeState()==0) {
-			    	g.setColor(Color.GREEN);
+	    		//绘制方向部分
+	    		switch(snake.get(m).getDrState()) {
+	    		case 2:g.setColor(Color.GREEN);break;
+	    		case 8:g.setColor(Color.GREEN);break;
+	    		case 4:g.setColor(Color.PINK);break;
+	    		case 6:g.setColor(Color.PINK);break;
+	    		
+	    		//default:g.setColor(Color.BLACK);break;
 	    		}
-	    		else {
-	    			g.setColor(Color.orange);
+	    		//绘制转弯部分
+	    		switch(snake.get(m).getTurnState()) {
+	    		case 1:g.setColor(Color.orange);break;
+	    		case 3:g.setColor(Color.orange);break;
+	    		case 7:g.setColor(Color.orange);break;
+	    		case 9:g.setColor(Color.orange);break;
+	    		
+	    		//default:g.setColor(Color.BLACK);break;
 	    		}
-	    		g.fillRect(snake.get(m).getX()*(20+2)+xp, snake.get(m).getY()*(20+2)+yp, 20, 20);
 	    	}
+	    	g.fillRect(snake.get(m).getX()*(20+2)+xp, snake.get(m).getY()*(20+2)+yp, 20, 20);
 	    }
 	    
 	    //食物绘制部分
 	    g.setColor(Color.RED);
     	g.fillRect(game.getFood().getX()*(20+2)+xp,game.getFood().getY()*(20+2)+yp, 20, 20);
+    	
+    	//绘制结束画面
+    	if(game.getGameState()==-1) {
+    		int x = this.getWidth()/2-200/2;
+    		int y = this.getHeight()/2-100/2;
+    		g.setColor(Color.WHITE);
+    		g.fillRect(x, y, 200, 100);
+    		g.setFont(new Font("微软雅黑", Font.ITALIC, 30));
+    		g.setColor(Color.PINK);
+    		g.drawRect(x, y, 200, 100);
+    		g.drawString("游戏结束", x+40, y+30);
+    		g.drawString(game.getScore()+"分", x+40, y+80);
+    	}
+    	
+    	//绘制暂停画面
+    	if(game.getGameState()==1) {
+    		int x = this.getWidth()/2-200/2;
+    		int y = this.getHeight()/2-100/2;
+    		g.setColor(Color.WHITE);
+    		g.fillRect(x, y, 200, 100);
+    		g.setFont(new Font("微软雅黑", Font.ITALIC, 30));
+    		g.setColor(Color.PINK);
+    		g.drawRect(x, y, 200, 100);
+    		g.drawString("暂停", x+60, y+30);
+    		g.drawString("按方向键开始", x+10, y+80);
+    	}
 	    
 	    
 	    
