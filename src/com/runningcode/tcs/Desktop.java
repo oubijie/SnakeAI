@@ -32,8 +32,8 @@ public class Desktop extends JFrame {
 	private JPanel contentPane = null;
 	
 	//设置参数
-	private int mapwidth = 10;
-	private int maplength = 10;
+	private int mapwidth = 20;
+	private int maplength = 20;
 	private int speed = 600;
 	
 	//当前窗口位置坐标
