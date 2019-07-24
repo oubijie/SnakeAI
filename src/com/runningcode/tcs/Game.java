@@ -63,7 +63,7 @@ public class Game implements Runnable {
 	/**
 	 * @方向枚举类型定义
 	 */
-	private enum Direction {
+	public enum Direction {
 		up, down, left, right, stop
 	};
 
@@ -240,25 +240,35 @@ public class Game implements Runnable {
 	 * @从GetKey类获取当前按键函数
 	 */
 	public void getnowDirection() {
+		refreshMap();
+		
 		int i_nowkey = nowkey.getKey();
 		Direction tempd = Direction.stop;
-		switch (i_nowkey) {
-		case 1:
-			tempd = Direction.up;
-			break;
-		case 2:
-			tempd = Direction.down;
-			break;
-		case 3:
-			tempd = Direction.left;
-			break;
-		case 4:
-			tempd = Direction.right;
-			break;
-		case 5:
+		
+		if(i_nowkey == 5){
 			tempd = Direction.stop;
-			break;
+		}else{
+			tempd = SnakeAI.autoPlay(map);
 		}
+		SnakeAI.printMap(map);
+		
+//		switch (i_nowkey) {
+//		case 1:
+//			tempd = Direction.up;
+//			break;
+//		case 2:
+//			tempd = Direction.down;
+//			break;
+//		case 3:
+//			tempd = Direction.left;
+//			break;
+//		case 4:
+//			tempd = Direction.right;
+//			break;
+//		case 5:
+//			tempd = Direction.stop;
+//			break;
+//		}
 
 		// 对回头的情况进行过滤
 		if (nowDirection == Direction.up && tempd == Direction.down)
@@ -407,6 +417,20 @@ public class Game implements Runnable {
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
+		}
+	}
+	
+	//把食物、蛇头、蛇身体描绘到map上，2代表食物，3代表蛇头，4代表蛇的身体
+	private void refreshMap(){
+		for(int i=1; i<map.length-2;i++){
+			for(int j=1; j<map.length-2;j++){
+				map[i][j] = 0;
+			}
+		}
+		map[food.getY()][food.getX()] = 2;
+		map[snake.getFirst().getY()][snake.getFirst().getX()] = 3;
+		for(int i=1; i<snake.size(); i++){
+			map[snake.get(i).getY()][snake.get(i).getX()] = 4;
 		}
 	}
 
