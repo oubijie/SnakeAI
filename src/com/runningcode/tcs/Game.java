@@ -1,5 +1,6 @@
 package com.runningcode.tcs;
 
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Random;
 
@@ -241,6 +242,7 @@ public class Game implements Runnable {
 	 */
 	public void getnowDirection() {
 		refreshMap();
+		printMap(map);
 		
 		int i_nowkey = nowkey.getKey();
 		Direction tempd = Direction.stop;
@@ -248,9 +250,9 @@ public class Game implements Runnable {
 		if(i_nowkey == 5){
 			tempd = Direction.stop;
 		}else{
-			tempd = SnakeAI.autoPlay(map);
+			tempd = SnakeAI2.autoPlay(map);
 		}
-		SnakeAI.printMap(map);
+		
 		
 //		switch (i_nowkey) {
 //		case 1:
@@ -269,6 +271,7 @@ public class Game implements Runnable {
 //			tempd = Direction.stop;
 //			break;
 //		}
+		
 
 		// 对回头的情况进行过滤
 		if (nowDirection == Direction.up && tempd == Direction.down)
@@ -432,6 +435,14 @@ public class Game implements Runnable {
 		for(int i=1; i<snake.size(); i++){
 			map[snake.get(i).getY()][snake.get(i).getX()] = 4;
 		}
+	}
+	
+	private void printMap(int[][] map){
+		System.out.println();
+		for(int[] arr : map){
+			System.out.println(Arrays.toString(arr));
+		}
+		System.out.println();
 	}
 
 	public void start() {

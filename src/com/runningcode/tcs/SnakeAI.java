@@ -53,10 +53,6 @@ public class SnakeAI {
 		
 	}
 	
-	public static void printMap(int[][] map){
-		for(int[] arr : map){
-			System.out.println(Arrays.toString(arr));
-		}
-	}
+	
 
 }
