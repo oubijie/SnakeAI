@@ -422,8 +422,8 @@ public class Game implements Runnable {
 	
 	//把食物、蛇头、蛇身体描绘到map上，2代表食物，3代表蛇头，4代表蛇的身体
 	private void refreshMap(){
-		for(int i=1; i<map.length-2;i++){
-			for(int j=1; j<map.length-2;j++){
+		for(int i=1; i<map.length-1;i++){
+			for(int j=1; j<map.length-1;j++){
 				map[i][j] = 0;
 			}
 		}
