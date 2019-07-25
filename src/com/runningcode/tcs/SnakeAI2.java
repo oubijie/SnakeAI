@@ -58,46 +58,58 @@ public class SnakeAI2 {
 			int[] up = new int[2];
 			up[0] = parent[0]-1;
 			up[1] = parent[1];
-			if(isSnakeHead(snake, up)){
-				return Direction.down;
-			}
-			if(check(map, nodes, snakeBody, up)){
-				nodes[nodeLen++] = up;
+			if(isValid(up, map.length, map[0].length)){
+				if(isSnakeHead(snake, up)){
+					System.out.println(Arrays.toString(parent));
+					return Direction.down;
+				}
+				if(check(nodes, snakeBody, up)){
+					nodes[nodeLen++] = up;
+				}
 			}
 			
 			int[] down = new int[2];
 			down[0] = parent[0]+1;
 			down[1] = parent[1];
-			if(isSnakeHead(snake, down)){
-				return Direction.up;
-			}
-			if(check(map, nodes, snakeBody, down)){
-				nodes[nodeLen++] = down;
+			if(isValid(down, map.length, map[0].length)){
+				if(isSnakeHead(snake, down)){
+					System.out.println(Arrays.toString(parent));
+					return Direction.up;
+				}
+				if(check(nodes, snakeBody, down)){
+					nodes[nodeLen++] = down;
+				}
 			}
 			
 			int[] left = new int[2];
 			left[0] = parent[0];
 			left[1] = parent[1]-1;
-			if(isSnakeHead(snake, left)){
-				return Direction.right;
-			}
-			if(check(map, nodes, snakeBody, left)){
-				nodes[nodeLen++] = left;
+			if(isValid(left, map.length, map[0].length)){
+				if(isSnakeHead(snake, left)){
+					System.out.println(Arrays.toString(parent));
+					return Direction.right;
+				}
+				if(check(nodes, snakeBody, left)){
+					nodes[nodeLen++] = left;
+				}
 			}
 			
 			int[] right = new int[2];
 			right[0] = parent[0];
 			right[1] = parent[1]+1;
-			if(isSnakeHead(snake, right)){
-				return Direction.left;
-			}
-			if(check(map, nodes, snakeBody, right)){
-				nodes[nodeLen++] = right;
+			if(isValid(right, map.length, map[0].length)){
+				if(isSnakeHead(snake, right)){
+					System.out.println(Arrays.toString(parent));
+					return Direction.left;
+				}
+				if(check(nodes, snakeBody, right)){
+					nodes[nodeLen++] = right;
+				}
 			}
 			
 			i++;
-//			System.out.println("nodeLen:" + nodeLen);
-//			System.out.println("i:" + i);
+			System.out.println("nodeLen:" + nodeLen);
+			System.out.println("i:" + i);
 		}
 		System.out.println("没路了T_T");
 		
@@ -111,16 +123,16 @@ public class SnakeAI2 {
 		return false;
 	}
 	
-	//检查节点是否合法，如果合法再看是否已检查过，如果没有检查过再看是否属于蛇的身体节点，都不是就返回true
-	private static boolean check(int[][] map, int[][] nodes, int[][] snakeBody, int[] node){
-		if(isValid(node, map.length, map[0].length) && !isExists(nodes, node) && !isExists(snakeBody, node)){
+	//检查节点是否已检查过，如果没有检查过再看是否属于蛇的身体节点，都不是就返回true
+	private static boolean check( int[][] nodes, int[][] snakeBody, int[] node){
+		if(!isExists(nodes, node) && !isExists(snakeBody, node)){
 			return true;
 		}
 		return false;
 	}
 	
 	public static boolean isValid(int[] node, int row, int col){
-		if(node[0] >= 1 && node[0] <= row && node[1] >= 1 && node[1] <= row){
+		if(node[0] >= 1 && node[0] <= row-2 && node[1] >= 1 && node[1] <= row-2){
 			return true;
 		}
 		return false;
