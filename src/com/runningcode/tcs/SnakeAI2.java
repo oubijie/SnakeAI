@@ -113,7 +113,7 @@ public class SnakeAI2 {
 		}
 		System.out.println("没路了T_T");
 		
-		return Direction.left;
+		return noway(map, snake);
 	}
 	
 	private static boolean isSnakeHead(int[] snake, int[] node){
@@ -146,6 +146,19 @@ public class SnakeAI2 {
 			}
 		}
 		return false;
+	}
+	
+	//临时无法找到路，那边有空白走哪边
+	private static Direction noway(int[][] map, int[] snake){
+		if(map[snake[0]-1][snake[1]] == 0){
+			return Direction.up;
+		}else if(map[snake[0]+1][snake[1]] == 0){
+			return Direction.down;
+		}else if(map[snake[0]][snake[1]-1] == 0){
+			return Direction.left;
+		}else{
+			return Direction.right;
+		}
 	}
 }
 

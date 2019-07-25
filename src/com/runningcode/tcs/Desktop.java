@@ -34,7 +34,7 @@ public class Desktop extends JFrame {
 	//设置参数
 	private int mapwidth = 20;
 	private int maplength = 20;
-	private int speed = 100;
+	private int speed = 50;
 	
 	//当前窗口位置坐标
 	private int nowJFx=0;
