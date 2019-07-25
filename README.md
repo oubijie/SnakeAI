@@ -7,10 +7,15 @@
 
 ### 练习说明
 完成SnakeAI的autoPlay方法
+
 传入的二维整型数组map中，0代表空白，1代表边界，2代表食物，3代表蛇头，4代表蛇身体
+
 找到蛇头到达食物的路径，并返回一个方向让贪吃蛇去吃食物
+
 建议使用广度优先搜索的算法
+
 一些参考资料
 [广度优先搜索 BFS](https://cloud.tencent.com/developer/article/1408077)
+[贪吃蛇AI](https://github.com/ganhang/SnakeAI)
 
 
